@@ -13,7 +13,7 @@
   "display": "standalone",
   "orientation": "portrait" ,
   "default_locale": "en",
-  "description": "Restaurant reviews app",
+  "description": "Restaurant reviews app ",
   "theme_color": "#ffa500",
   "icons": [
     {
