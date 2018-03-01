@@ -18,17 +18,6 @@ openDatabase = () => {
       case 0:
         const store = upgradeDB.createObjectStore('restaurants', {keyPath: 'id'})
         store.createIndex('neighborhood', 'neighborhood')
-  /*    case 1:
-        console.log('Creating the products object store');
-        upgradeDB.createObjectStore('people', {keyPath: 'name'})
-
-      case 2:
-        var peopleStore = upgradeDB.transaction.objectStore('people')
-        peopleStore.createIndex('animal', 'favoriteAnimal')
-      case 3:
-        var peopleStore = upgradeDB.transaction.objectStore('people')
-        peopleStore.createIndex('age', 'age')*/
-
     }
   })
 }
