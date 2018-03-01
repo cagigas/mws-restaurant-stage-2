@@ -16,11 +16,12 @@ document.addEventListener('DOMContentLoaded', (event) => {
  * Fetch all neighborhoods and set their HTML.
  */
 fetchNeighborhoods = () => {
-  //var foo = 123;
   DBHelper.fetchNeighborhoods((error, neighborhoods) => {
     if (error) { // Got an error
       console.error(error);
     } else {
+      console.log("fetchNeighborhoods: ", neighborhoods )
+
       self.neighborhoods = neighborhoods;
       fillNeighborhoodsHTML();
     }

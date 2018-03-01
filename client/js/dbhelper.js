@@ -8,7 +8,7 @@ class DBHelper {
    * Change this to restaurants.json file location on your server.
    */
   static get DATABASE_URL() {
-    const port = 3000 // Change this to your server port
+    const port = 8000 // Change this to your server port
     return `http://localhost:${port}/data/restaurants.json`;
   }
 
@@ -16,19 +16,31 @@ class DBHelper {
    * Fetch all restaurants.
    */
   static fetchRestaurants(callback) {
-    let xhr = new XMLHttpRequest();
+    dbPromise.then(function(db) {
+      var store = db.transaction('restaurants')
+          .objectStore('restaurants')
+          console.log("Resta: ", store.getAll())
+      return store.getAll()
+    }).then(function(val) {
+      callback(null, val);
+      //return val;
+    });
+
+
+  /*  let xhr = new XMLHttpRequest();
     xhr.open('GET', DBHelper.DATABASE_URL);
     xhr.onload = () => {
       if (xhr.status === 200) { // Got a success response from server!
         const json = JSON.parse(xhr.responseText);
         const restaurants = json.restaurants;
+        console.log("Restauranteees! ", restaurants)
         callback(null, restaurants);
       } else { // Oops!. Got an error from server.
         const error = (`Request failed. Returned status of ${xhr.status}`);
         callback(error, null);
       }
     };
-    xhr.send();
+    xhr.send();*/
   }
 
   /**
@@ -37,6 +49,7 @@ class DBHelper {
   static fetchRestaurantById(id, callback) {
     // fetch all restaurants with proper error handling.
     DBHelper.fetchRestaurants((error, restaurants) => {
+      console.log("Rest: ", restaurants)
       if (error) {
         callback(error, null);
       } else {
@@ -56,6 +69,8 @@ class DBHelper {
   static fetchRestaurantByCuisine(cuisine, callback) {
     // Fetch all restaurants  with proper error handling
     DBHelper.fetchRestaurants((error, restaurants) => {
+      console.log("Restc: ", restaurants)
+
       if (error) {
         callback(error, null);
       } else {
@@ -72,6 +87,8 @@ class DBHelper {
   static fetchRestaurantByNeighborhood(neighborhood, callback) {
     // Fetch all restaurants
     DBHelper.fetchRestaurants((error, restaurants) => {
+      console.log("Restn: ", restaurants)
+
       if (error) {
         callback(error, null);
       } else {
@@ -109,6 +126,8 @@ class DBHelper {
   static fetchNeighborhoods(callback) {
     // Fetch all restaurants
     DBHelper.fetchRestaurants((error, restaurants) => {
+      console.log("Restn: ", restaurants)
+
       if (error) {
         callback(error, null);
       } else {
@@ -150,7 +169,7 @@ class DBHelper {
    * Restaurant image URL.
    */
   static imageUrlForRestaurant(restaurant) {
-    return (`/img/${restaurant.photograph}`);
+    return (`/img/${restaurant.photograph}.jpg`);
   }
 
   /**

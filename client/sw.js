@@ -1,5 +1,5 @@
 
-var CACHE_NAME = 'restaurant-cache-39';
+var CACHE_NAME = 'restaurant-cache-51';
 
 self.addEventListener('install', function (event) {
   // Perform install steps
@@ -14,6 +14,7 @@ self.addEventListener('install', function (event) {
           'css/responsive.css',
           'js/dbhelper.js',
           'js/main.js',
+          'js/idb.js',
           'js/IndexController.js',
           'js/restaurant_info.js',
           'data/restaurants.json',
@@ -48,11 +49,11 @@ self.addEventListener('activate', function(event) {
 });
 
 self.addEventListener('fetch', event => {
-  console.log("response2: ",  event)
+//  console.log("response2: ",  event)
 
   event.respondWith(
     caches.match(event.request, {ignoreSearch:true}).then(response => {
-      console.log("response: ", response, event.request)
+    //  console.log("response: ", response, event.request)
       return response || fetch(event.request);
     })
     .catch(err => console.log(err, event.request))
